@@ -19,3 +19,14 @@ def from_object:
     | field_union as $cols
     | [[""] + $cols] + (to_entries | map([.key] + (.value | for_fields($cols))))
 ;
+
+def to_adoc:
+    "[cols=\"1h,\(.[1:] | (map("1") | join(",")))\"]\n"
+    + "|===\n"
+    + "| " + (.[0] | join(" | "))
+    + "\n\n"
+    + (["| " + (.[1:][] | join(" | "))] | join("\n"))
+    + "\n"
+    + "|==="
+;
+
